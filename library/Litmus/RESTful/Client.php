@@ -195,16 +195,17 @@ class Litmus_RESTful_Client {
             }
         }
         $this->_initCurlSession($uri);
-        curl_setopt($this->_curl_handle, CURLOPT_POST, true);
-        $headers = array(
-            'Content-Type: application/xml',
-        );
-        curl_setopt($this->_curl_handle, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($this->_curl_handle, CURLOPT_CUSTOMREQUEST, 'POST');
         //curl_setopt($this->_curl_handle, CURLOPT_VERBOSE, true);
         if ($request !== null) {
+            $headers = array(
+                'Content-Type: application/xml',
+            );
+            curl_setopt($this->_curl_handle, CURLOPT_HTTPHEADER, $headers);
             curl_setopt($this->_curl_handle, CURLOPT_POSTFIELDS, $request);
         }
         $this->_performCurlSession();
+
         return $this->_curl_result;
     }
 
